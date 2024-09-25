@@ -29,6 +29,43 @@ services:
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=wordpress
       - WORDPRESS_DB_NAME=wordpress
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.wordpress.rule=PathPrefix(`/wp`)"
+        - "traefik.http.routers.wordpress.entrypoints=web"
+        - "traefik.http.services.wordpress.loadbalancer.server.port=80"
+        - "traefik.http.middlewares.wordpress-stripprefix.stripprefix.prefixes=/wp"
+        - "traefik.http.routers.wordpress.middlewares=wordpress-stripprefix@docker"
+        
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--api.insecure=true"  # Enable the API in insecure mode
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--providers.docker.swarmMode=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      update_config:
+        parallelism: 1
+        order: stop-first
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.traefik.rule=Host(`traefik.example.com`)"
+        - "traefik.http.routers.traefik.service=api@internal"
+        - "traefik.http.routers.traefik.entrypoints=websecure"
+        - "traefik.http.routers.traefik.tls.certresolver=leresolver"
 
 volumes:
   db_data:
