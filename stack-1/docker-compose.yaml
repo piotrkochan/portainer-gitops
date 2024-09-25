@@ -80,3 +80,4 @@ volumes:
       allow_other: 'true'
       vfs_cache_mode: full
       poll_interval: 0
+      path: wp-content
