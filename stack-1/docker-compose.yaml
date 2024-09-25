@@ -27,10 +27,10 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.wordpress.rule=PathPrefix(`/wp`)"
+        - "traefik.http.routers.wordpress.rule=PathPrefix(`/wp1`)"
         - "traefik.http.routers.wordpress.entrypoints=web"
         - "traefik.http.services.wordpress.loadbalancer.server.port=80"
-        - "traefik.http.middlewares.wordpress_stripprefix.stripprefix.prefixes=/wp"
+        - "traefik.http.middlewares.wordpress_stripprefix.stripprefix.prefixes=/wp1"
         - "traefik.http.routers.wordpress.middlewares=wordpress_stripprefix@docker"
 
   traefik:
