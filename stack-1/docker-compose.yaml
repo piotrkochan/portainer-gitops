@@ -31,7 +31,7 @@ services:
       - WORDPRESS_DB_NAME=wordpress
 
   obsidian:
-    image: ghcr.io/obsidianmd/obsidian:latest
+    image: lscr.io/linuxserver/obsidian:latest
     ports:
       - "3000:3000"
     deploy:
