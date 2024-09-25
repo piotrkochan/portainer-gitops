@@ -74,3 +74,12 @@ volumes:
   db_data:
   wp_data:
   letsencrypt:
+
+volumes:
+  db_data_rclone:
+    driver: rclone
+    driver_opts:
+      remote: 'spaces:wp_data'
+      allow_other: 'true'
+      vfs_cache_mode: full
+      poll_interval: 0
