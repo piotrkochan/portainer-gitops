@@ -30,8 +30,8 @@ services:
         - "traefik.http.routers.wordpress.rule=PathPrefix(`/wp`)"
         - "traefik.http.routers.wordpress.entrypoints=web"
         - "traefik.http.services.wordpress.loadbalancer.server.port=80"
-        - "traefik.http.middlewares.wordpress-stripprefix.stripprefix.prefixes=/wp"
-        - "traefik.http.routers.wordpress.middlewares=wordpress-stripprefix@docker"
+        - "traefik.http.middlewares.wordpress_stripprefix.stripprefix.prefixes=/wp"
+        - "traefik.http.routers.wordpress.middlewares=wordpress_stripprefix@docker"
 
   traefik:
     image: traefik:v2.10
