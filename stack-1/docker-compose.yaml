@@ -18,7 +18,7 @@ services:
   wordpress:
     image: wordpress:latest
     volumes:
-      - db_data_rclone:/var/www/html
+      - db_data_rclone:/var/www/html/wp-content
     environment:
       - WORDPRESS_DB_HOST=db
       - WORDPRESS_DB_USER=wordpress
@@ -77,7 +77,7 @@ volumes:
   db_data_rclone:
     driver: rclone
     driver_opts:
-      remote: 'spaces:'
+      remote: 'spaces:wp_data'
       allow_other: 'true'
       vfs_cache_mode: full
       poll_interval: 0
