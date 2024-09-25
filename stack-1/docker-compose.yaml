@@ -76,8 +76,7 @@ volumes:
   wp_content:
     driver: rclone
     driver_opts:
-      remote: 'spaces:wordpress-data-uhbp8u8h'
+      remote: 'spaces:wordpress-data-uhbp8u8h/wp-content'
       allow_other: 'true'
       vfs_cache_mode: full
       poll_interval: 0
-      path: /wp-content
