@@ -72,7 +72,6 @@ services:
 
 volumes:
   db_data:
-  wp_data:
   letsencrypt:
   db_data_rclone:
     driver: rclone
