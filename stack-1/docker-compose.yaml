@@ -74,6 +74,8 @@ volumes:
   db_data:
   wp_data:
   letsencrypt:
+  vol1:
+    external: true
   db_data_rclone:
     driver: rclone
     driver_opts:
